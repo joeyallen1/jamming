@@ -86,14 +86,13 @@ void setup() {
 
   //grasp object
   digitalWrite(motorPosPress,HIGH);
-  delay(3000);
+  delay(5000);
   digitalWrite(motorPosPress,LOW);
 
   // calibrate jammed capacitance
-  digitalWrite(valveJ, HIGH);
-  digitalWrite(motorNegPress, HIGH);
-
-  delay(5000);
+  // digitalWrite(valveJ, HIGH);
+  // digitalWrite(motorNegPress, HIGH);
+  // delay(5000);
 
   // read initial pressure
   pressureTime = millis();
@@ -115,26 +114,29 @@ void setup() {
   Serial.println(capC1Init, 4);
   Serial.println(capC2Init, 4);
 
-  Serial.println("Jammed state has been calibrated.");
+  Serial.println("Jammed state has been calibrated, lift object now.");
+  delay(5000);
 }
 
 
 void loop() {
 
-  digitalWrite(valveJ, LOW);
-  digitalWrite(valveF, LOW);
-  digitalWrite(motorPosPress, LOW);
-  digitalWrite(motorNegPress, LOW);
+  //for testing
+  // digitalWrite(valveJ, LOW);
+  // digitalWrite(valveF, LOW);
+  // digitalWrite(motorPosPress, LOW);
+  // digitalWrite(motorNegPress, LOW);
 
-  int countdown = 50;
+  // int countdown = 50;
 
-  while (countdown){
-    logger();
-    countdown -= 1;
-  }
+  // while (countdown){
+  //   logger();
+  //   countdown -= 1;
+  // }
 
-  deactivateActuator(2000, valveJ);
-  deactivateActuator(2000, valveF);
+  logger();
+  // deactivateActuator(2000, valveJ);
+  // deactivateActuator(2000, valveF);
 
 
 
@@ -254,16 +256,6 @@ void deactivateActuator(unsigned long onTime, int valvePin){
  
   while ((millis() - startTime) < onTime){
     logger();
-  }
-
-  // turn fingers or jammer motor off
-  if (valvePin == valveJ){
-    digitalWrite(motorNegPress, LOW);
-    digitalWrite(valveJ, LOW);
-  }
-  else{
-    digitalWrite(motorPosPress, LOW);
-    digitalWrite(valveF, LOW);
   }
 }
 
